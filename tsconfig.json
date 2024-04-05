@@ -4,7 +4,6 @@
     "target": "ESNext",
     "lib": ["DOM", "DOM.Iterable", "ES5", "ES6", "ESNext", "ES2020"],
     "module": "ESNext",
-    "skipLibCheck": true,
     "baseUrl": ".",
 
     /* Bundler mode */
@@ -23,7 +22,8 @@
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
-    "incremental": true
+    "incremental": true,
+    "skipLibCheck": true
   },
   "include": ["src", "vite.config.ts", "vitest.config.ts", "__tests__"]
 }
