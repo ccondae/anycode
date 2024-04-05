@@ -1,4 +1,7 @@
+import { useToast } from "~/shared/common-ui/toast";
+
 export const RootPage = () => {
+  const { toast } = useToast();
   return (
     <div className="">
       {`
@@ -7,6 +10,13 @@ export const RootPage = () => {
     "그럼 제 이름은 왜 이래요?"
     "그래,르미아."
     `}
+      <button
+        onClick={() => {
+          toast({ title: "hello world" });
+        }}
+      >
+        온클릭
+      </button>
     </div>
   );
 };
