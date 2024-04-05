@@ -1,10 +1,17 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { RouterProvider } from "react-router-dom";
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+import { GlobalSuspenseBoundary, ProviderList } from "~/app/provider";
+import { router } from "~/app/router/router";
+import "~/app/style/index.css";
+
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-)
+    <ProviderList>
+      <GlobalSuspenseBoundary>
+        <RouterProvider router={router} />
+      </GlobalSuspenseBoundary>
+    </ProviderList>
+  </React.StrictMode>
+);

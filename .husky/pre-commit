@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🎉 르미 좋아하는 사람 손들어보라고 하니까 지구가 성게가 됐대 🎉"
