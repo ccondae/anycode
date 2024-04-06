@@ -1,6 +1,4 @@
 import { createGlobalStyle } from "styled-components";
-import reset from "styled-reset";
-
 
 export const GlobalStyle = createGlobalStyle`
   html, body, div, span, applet, object, iframe,
@@ -52,7 +50,7 @@ export const GlobalStyle = createGlobalStyle`
   table {
     border-collapse: collapse;
     border-spacing: 0;
-
+  }
   * {
     box-sizing: border-box;
   }
@@ -62,6 +60,7 @@ export const GlobalStyle = createGlobalStyle`
     color: ${(props) => props.theme.colors.white};
   }
 `;
+
 export const GlobalStyleProvider = () => {
   return (
     <>

@@ -16,7 +16,9 @@ const Input = styled.input`
 `;
 
 export const SearchInput = () => {
-  const [value, setValue] = useState();
-  const onChange = () => {};
+  const [value, setValue] = useState("");
+  const onChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+    setValue(event.target.value);
+  };
   return <Input placeholder="Search" value={value} onChange={onChange} />;
 };
