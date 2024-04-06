@@ -1,0 +1,29 @@
+{
+  "extends": ["@xionhub/fsd-typescript"],
+  "compilerOptions": {
+    "target": "ESNext",
+    "lib": ["DOM", "DOM.Iterable", "ES5", "ES6", "ESNext", "ES2020"],
+    "module": "ESNext",
+    "baseUrl": ".",
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "composite": true,
+    "allowSyntheticDefaultImports": true,
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "incremental": true,
+    "skipLibCheck": true
+  },
+  "include": ["src", "vite.config.ts", "vitest.config.ts", "__tests__"]
+}
