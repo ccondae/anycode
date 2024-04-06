@@ -1,7 +1,7 @@
 import { ThemeProvider, createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 
-import { vars } from "../style/theme";
+import { vars } from "~/shared/common-ui/theme";
 
 export const GlobalStyle = createGlobalStyle`
   ${reset}
