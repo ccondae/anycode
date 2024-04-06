@@ -1,7 +1,7 @@
 import { FormEvent, useState } from "react";
 import { styled } from "styled-components";
 
-import QuestionWriteEditor from "~/entities/question/ui/question-write-editor.ui";
+import { QuestionWriteEditor } from "~/entities/question/ui";
 
 const QuestionContainer = styled.div`
   margin: 20px 0;

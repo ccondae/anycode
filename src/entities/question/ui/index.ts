@@ -1,1 +1,1 @@
-export * from "./question-title.ui";
+export * from "./question-write-editor.ui";

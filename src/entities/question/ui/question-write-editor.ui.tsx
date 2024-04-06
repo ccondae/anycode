@@ -43,7 +43,7 @@ type WriteEditorProps = {
   setMarkdown: (str: string, name: WriteMarkdownType) => void;
 };
 
-const QuestionWriteEditor = ({ title, type, hasFakePlaceholder, markdown, setMarkdown }: WriteEditorProps) => {
+export const QuestionWriteEditor = ({ title, type, hasFakePlaceholder, markdown, setMarkdown }: WriteEditorProps) => {
   const ref = useRef<MDXEditorMethods>(null);
   const [reset, setReset] = useState(hasFakePlaceholder);
 
@@ -67,5 +67,3 @@ const QuestionWriteEditor = ({ title, type, hasFakePlaceholder, markdown, setMar
     </EditorContainer>
   );
 };
-
-export default QuestionWriteEditor;
