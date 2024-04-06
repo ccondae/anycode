@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Header } from "~/widgets/header";
 import { LanguageRank } from "~/widgets/language-rank";
 import { QuestionGuide } from "~/widgets/question-guide";
+import { QuestionList } from "~/widgets/question-list";
 import { ReviewerRank } from "~/widgets/reviewer-rank";
 
 const Main = styled.main`
@@ -26,11 +27,14 @@ export const RootPage = () => {
   return (
     <>
       <Header />
+
       <Main>
         <LeftSideBars>
           <ReviewerRank />
           <LanguageRank />
         </LeftSideBars>
+        {/* Todo: 사이드바 작업한 거랑 레이아웃 합쳐야함 */}
+        <QuestionList />
         <QuestionGuide />
       </Main>
     </>
