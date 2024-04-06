@@ -50,6 +50,14 @@ export const GlobalStyle = createGlobalStyle`
   table {
     border-collapse: collapse;
     border-spacing: 0;
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    background-color: ${(props) => props.theme.colors.black};
+    color: ${(props) => props.theme.colors.white};
   }
 `;
 export const GlobalStyleProvider = () => {
