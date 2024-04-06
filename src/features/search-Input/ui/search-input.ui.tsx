@@ -1,8 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-import { SearchInputProps } from "../model/search-input.type";
-
 const Input = styled.input`
   width: 100%;
   max-width: 630px;
