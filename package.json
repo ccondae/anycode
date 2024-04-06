@@ -11,7 +11,8 @@
     "test": "vitest",
     "test:all": "vitest run",
     "prepare": "husky install",
-    "prettify": "prettier --write 'src/**/*.{ts,tsx,css,json}'"
+    "prettify": "prettier --write 'src/**/*.{ts,tsx,css,json}'",
+    "push": "git push origin $(git symbolic-ref --short HEAD)"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
