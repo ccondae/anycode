@@ -3,6 +3,7 @@ import { Logo } from "./header/Logo";
 import { Like } from "./main/Like";
 import { Review } from "./main/Review";
 import { View } from "./main/View";
+import { Crown } from "./main/crown";
 
 export const TemplateIcon = ({ width, height, fill, viewBox, d }: IconProps) => {
   return (
@@ -17,4 +18,5 @@ export const Icon = {
   Review,
   View,
   Like,
+  Crown,
 };
