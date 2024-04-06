@@ -1,9 +1,38 @@
+import styled from "styled-components";
+
 import { Header } from "~/widgets/header";
+import { LanguageRank } from "~/widgets/language-rank";
+import { QuestionGuide } from "~/widgets/question-guide";
+import { ReviewerRank } from "~/widgets/reviewer-rank";
+
+const Main = styled.main`
+  width: 100%;
+  max-width: 1440px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 10px;
+`;
+
+const LeftSideBars = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 30px;
+`;
 
 export const RootPage = () => {
   return (
     <>
       <Header />
+      <Main>
+        <LeftSideBars>
+          <ReviewerRank />
+          <LanguageRank />
+        </LeftSideBars>
+        <QuestionGuide />
+      </Main>
     </>
   );
 };
