@@ -60,7 +60,6 @@ export const GlobalStyle = createGlobalStyle`
     color: ${(props) => props.theme.colors.white};
   }
 `;
-
 export const GlobalStyleProvider = () => {
   return (
     <>
