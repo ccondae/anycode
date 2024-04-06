@@ -50,6 +50,7 @@ const QuestionWritePage = () => {
       </TmpContent>
     </TmpContainer>
   );
+
 };
 
 export default QuestionWritePage;

@@ -4,10 +4,10 @@ import { Like } from "./main/Like";
 import { Review } from "./main/Review";
 import { View } from "./main/View";
 
-export const TemplateIcon = ({ width, height, fill }: IconProps) => {
+export const TemplateIcon = ({ width, height, fill, viewBox, d }: IconProps) => {
   return (
-    <svg width={width} height={height} viewBox="current" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="current" fill={fill} />
+    <svg width={width} height={height} viewBox={viewBox} fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d={d} fill={fill} />
     </svg>
   );
 };
