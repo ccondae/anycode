@@ -1,18 +1,18 @@
 export type ProfileHeaderProps = {
-    userProfile: {
-        userName: string;
-        questionCount: number;
-        answerCount: number;
-    }
-    viewCount: number;
-    commnetCount: number;
-    likeCount: number;
-}
+  userProfile: {
+    userName: string;
+    questionCount: number;
+    answerCount: number;
+  };
+  viewCount: number;
+  commnetCount: number;
+  likeCount: number;
+};
 export type QuestionTitleProps = {
-    title: string;
-    codetype:string[];
-}
+  title: string;
+  codetype: string[];
+};
 export type QuestionBodyProps = {
-    questionTitle: string[];
-    questionText: string[];
-}
+  questionTitle: string[];
+  questionText: string[];
+};
