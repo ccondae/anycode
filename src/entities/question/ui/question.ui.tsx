@@ -31,6 +31,7 @@ const QuestionFooter = styled.div`
 const Language = styled.div`
   font-size: ${(props) => props.theme.fontSize.body2};
   color: ${(props) => props.theme.colors.secondary};
+  margin-right: 8px;
 `;
 
 const Date = styled.div`
@@ -41,24 +42,40 @@ const Date = styled.div`
 // Todo: 타입 변경 필요
 interface IQuestionProps {
   title: string;
-  language?: string;
+  categories: {
+    id: number;
+    name: string;
+    count: number;
+  }[];
   likeCount: number;
   viewCount: number;
-  categories: string[];
-  comments: string[];
+  commentCount: number;
   children?: React.ReactNode;
+  createdAt: string;
 }
 
 // Todo: question 타입에 맞게 수정 필요
-export const Question = ({ title, language, likeCount, viewCount, comments, children }: IQuestionProps) => {
+export const Question = ({
+  title,
+  likeCount,
+  viewCount,
+  commentCount,
+  categories,
+  createdAt,
+  children,
+}: IQuestionProps) => {
+  const date = createdAt.split("T")[0].split("-").join("/");
+
   return (
     <QuestionContainer>
-      <QuestionHeader viewCount={viewCount} likeCount={likeCount} comments={comments.length} />
+      <QuestionHeader viewCount={viewCount} likeCount={likeCount} comments={commentCount} />
       <QuestionContent>
         <QuestionText>{title}</QuestionText>
         <QuestionFooter>
-          <Language>{language}</Language>
-          <Date>2024/01/01</Date>
+          {categories.map(({ name, id }) => (
+            <Language key={id}>{name}</Language>
+          ))}
+          <Date>{date}</Date>
         </QuestionFooter>
         {/*게시물 상세 페이지 본문을 위한 children*/}
         {children}
