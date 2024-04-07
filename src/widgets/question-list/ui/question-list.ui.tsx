@@ -40,9 +40,7 @@ export const QuestionList = () => {
   const [searchParams] = useSearchParams();
   const page = Number(searchParams?.get("page")) || 1;
   const { data: questions, isPending, isError } = useQuestionListQuery(page - 1);
-  const { current, pages, isNoPrev, isNoNext } = usePageNation(questions?.totalPages ?? 1, 5);
-  console.log(pages);
-  console.log(questions);
+  const { currentPage, pages, isNoPrev, isNoNext } = usePageNation(page, 5);
 
   if (isPending) {
     return <div>Loading...</div>;
@@ -70,7 +68,7 @@ export const QuestionList = () => {
       <PageNationContainer>
         {!isNoPrev && <Link to={`?page=${pages[0] - 1}`}>{"<"}</Link>}
         {pages.map((page) => (
-          <PageNationItem key={page} $isCurrent={current === page} to={`?page=${page}`}>
+          <PageNationItem key={page} $isCurrent={currentPage === page} to={`?page=${page}`}>
             {page}
           </PageNationItem>
         ))}
