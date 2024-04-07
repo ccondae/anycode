@@ -12,6 +12,7 @@ declare module "styled-components" {
       view: string,
       answer: string,
       like: string,
+      gray:string,
     },
     fontSize: {
       headline1: string,

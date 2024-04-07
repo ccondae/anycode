@@ -15,11 +15,11 @@ const Wrapper = styled.div`
   margin: auto;
 `;
 
-export const Top = () => {
+export const Top = ({ isWritePage = false }: { isWritePage?: boolean }) => {
   return (
     <Wrapper>
       <Filter />
-      <QuestionButton />
+      {!isWritePage && <QuestionButton />}
     </Wrapper>
   );
 };

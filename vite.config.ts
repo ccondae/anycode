@@ -11,7 +11,6 @@ export default defineConfig({
       "/api": {
         target: "http://api.anycode.review:8080",
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, "/api"), // URL 경로 재작성,
       },
     },
   },

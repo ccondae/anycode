@@ -1,13 +1,8 @@
 import { atom } from "recoil";
 
-import { QuestionType } from "./question.type";
+import { QuestionWriteType } from "./question.type";
 
-export const questionAtom = atom<QuestionType>({
+export const questionAtom = atom<QuestionWriteType>({
   key: "question",
-  default: {
-    title: "",
-    language: "",
-    purpose: "",
-    content: "",
-  },
+  default: { title: "", githubUrl: "", content: "", code: "", categoryIds: [], purpose: "" },
 });

@@ -14,6 +14,7 @@ import { Banner } from "~/shared/banner";
 const Main = styled.main`
   width: 100%;
   max-width: 1440px;
+  margin: auto;
   display: flex;
   justify-content: center;
   align-items: flex-start;
