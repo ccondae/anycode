@@ -5,27 +5,9 @@ import { UseQueryResult, useQuery } from "@tanstack/react-query";
 import { QuestionListType } from "../model/question-list.type";
 import { QUESTION_LIST_ENDPOINT, QUESTION_LIST_KEY } from "./question-list.key";
 
-export const useQuestionListQuery = (): UseQueryResult<QuestionListType> => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const page = Number(searchParams?.get("page")) || 0;
-
-  const onClickPrevButton = () => {
-    searchParams.set("page", `${Math.max(0, page - 1)}`);
-    setSearchParams(searchParams);
-  };
-
-  const onClickNextButton = () => {
-    searchParams.set("page", `${page + 1}`);
-    setSearchParams(searchParams);
-  };
-
-  const on특정페이지 = (value: number) => {
-    searchParams.set("page", `${value}`);
-    setSearchParams(searchParams);
-  };
-
+export const useQuestionListQuery = (page: number): UseQueryResult<QuestionListType> => {
   const questionList = useQuery<QuestionListType>({
-    queryKey: QUESTION_LIST_KEY.default,
+    queryKey: QUESTION_LIST_KEY.pagination({ size: 10, page }),
     queryFn: async () => {
       const response = await fetch(QUESTION_LIST_ENDPOINT.pagination({ size: 10, page }), { method: "POST" });
       const json = await response.json();
