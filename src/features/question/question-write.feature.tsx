@@ -1,6 +1,10 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { styled } from "styled-components";
 
+import { QUESTION_WRTIE_ENDPOINT } from "~/entities/question/api/question-write.key";
+import { useCategoryAllQuery } from "~/entities/question/api/use-category-all.query";
+import { useQuestionWriteMutation } from "~/entities/question/api/use-question-write.mutataion";
+import { CategoryType } from "~/entities/question/model/question.type";
 import { QuestionWriteEditor } from "~/entities/question/ui";
 
 const QuestionContainer = styled.div`
@@ -48,7 +52,7 @@ const TextInputContainer = styled.div`
 `;
 const initialMarkdown = {
   purpose: "> 코드를 사용하려는 목적에 대해 알기쉽게 입력해주세요.",
-  question: "> 작성된 코드의 질문을 입력해주세요.",
+  content: "> 작성된 코드의 질문을 입력해주세요.",
   code: `
 \`\`\`js
 const solution = () => {
@@ -60,28 +64,60 @@ console.log(solution());
   `,
 };
 
-export type WriteMarkdownType = "purpose" | "question" | "code";
+export type WriteMarkdownType = "purpose" | "content" | "code";
 
 const QuestionWrite = () => {
+  const { data: categories } = useCategoryAllQuery();
+  const { mutate } = useQuestionWriteMutation();
+
   const [markdowns, setMarkDowns] = useState(initialMarkdown);
+  const [findCategory, setFindCategory] = useState<{ [key: string]: CategoryType }>({});
 
   const handleMarkDown = (str: string, name: WriteMarkdownType) => {
     setMarkDowns((p) => ({ ...p, [name]: str }));
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { titleee, language, github } = e.currentTarget;
+    const { titleee, githubUrl } = e.currentTarget;
 
     // title.value는 예약어가 있는 것 같습니다. string이 아니라고 하네요.
     const data = {
       title: titleee.value || "",
-      language: language.value || "",
-      github: github.value || "",
+      categoryIds: [1],
+      githubUrl: githubUrl.value || "",
       ...markdowns,
     };
-    console.log(data);
+    mutate(data, {
+      onError: (error) => {
+        console.log(error);
+      },
+      onSettled: () => {},
+      onSuccess: () => {},
+    });
+    return;
+    try {
+      const response = await fetch(QUESTION_WRTIE_ENDPOINT.default, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) throw new Error("");
+      const result = await response.json();
+      console.log(result);
+    } catch (error) {
+      console.error(error);
+    }
   };
+
+  useEffect(() => {
+    if (Object.keys(findCategory).length == 0 && categories) {
+      categories.map((category: CategoryType) => (findCategory[category.name] = category));
+      setFindCategory({ ...findCategory });
+    }
+  }, [findCategory, categories]);
 
   return (
     <form action="" onSubmit={handleSubmit}>
@@ -92,7 +128,7 @@ const QuestionWrite = () => {
         </TextInputContainer>
         <TextInputContainer>
           <label>{"언어 선택하기"}</label>
-          <input name={"language"} placeholder={"질문하는 코드의 언어를 써주세요."} />
+          <input name={"category"} placeholder={"질문하는 코드의 언어를 써주세요."} />
         </TextInputContainer>
         <QuestionWriteEditor
           title={"목적"}
@@ -103,15 +139,15 @@ const QuestionWrite = () => {
         />
         <QuestionWriteEditor
           title={"질문"}
-          type={"purpose"}
-          markdown={markdowns.question}
+          type={"content"}
+          markdown={markdowns.content}
           setMarkdown={handleMarkDown}
           hasFakePlaceholder
         />
         <QuestionWriteEditor title={"코드"} type={"purpose"} markdown={markdowns.code} setMarkdown={handleMarkDown} />
         <TextInputContainer>
           <label>{"Github link"}</label>
-          <input name={"github"} defaultValue={"https://github.com/"} />
+          <input name={"githubUrl"} defaultValue={"https://github.com/"} />
         </TextInputContainer>
         <button>{"등록하기"}</button>
       </QuestionContainer>

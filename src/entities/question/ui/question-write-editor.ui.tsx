@@ -24,6 +24,9 @@ const EditorContainer = styled.div`
       min-height: 80px;
     }
   }
+  & > label {
+    color: ${({ theme }) => theme.colors.black};
+  }
 `;
 
 const Hr = styled.hr`
