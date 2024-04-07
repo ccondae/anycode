@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import { Question } from "~/entities/question";
 import { useQuestionListQuery } from "~/entities/question-list/api/use-question-list.query";
+import { useQuestionSearchQuery } from "~/entities/question-list/api/use-question-search.query";
 
 import { PageNation } from "~/shared/common-ui/page-nation";
 
@@ -28,22 +29,31 @@ const QuestionListContainer = styled.div`
 export const QuestionList = () => {
   const [searchParams] = useSearchParams();
   const currentPage = Number(searchParams?.get("page")) || 1;
+  const searchTerm = searchParams?.get("search") || "";
   // Todo: 현재는 "popular"로 고정되어있지만, 인자로 받아서 사용할 수 있도록 변경해야합니다.
   // "전체","답변된 질문","답변되지 않은 질문" 등등..
   const { data: questions, isPending, isError } = useQuestionListQuery(currentPage - 1);
+  const {
+    data: searchedQuestionData,
+    isPending: isSearchedPending,
+    isError: isSearchedError,
+  } = useQuestionSearchQuery(searchTerm);
 
-  if (isPending) {
+  if (isPending || isSearchedPending) {
     return <div>Loading...</div>;
   }
 
-  if (isError) {
+  if (isError || isSearchedError) {
     return <div>Error</div>;
   }
+
+  const data = searchTerm ? searchedQuestionData : questions.content;
 
   return (
     <Container>
       <QuestionListContainer>
-        {questions.content.map(({ id, title, likeCount, viewCount, categories, commentCount, createdAt }) => (
+        {data.length === 0 && <div>검색 결과가 없습니다.</div>}
+        {data.map(({ id, title, likeCount, viewCount, categories, commentCount, createdAt }) => (
           <Question
             key={id}
             title={title}
