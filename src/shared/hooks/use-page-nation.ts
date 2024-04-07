@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
-export const usePagenation = (totalPages: number, maxPages: number) => {
+export const usePageNation = (totalPages: number, maxPages: number) => {
   const [searchParams] = useSearchParams();
 
   const [current, setCurrent] = useState(Number(searchParams.get("page")) || 1);

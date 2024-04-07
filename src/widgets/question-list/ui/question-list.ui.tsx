@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Question } from "~/entities/question";
 import { useQuestionListQuery } from "~/entities/question-list/api/use-question-list.query";
 
-import { usePagenation } from "~/shared/hooks/use-pagenation";
+import { usePageNation } from "~/shared/hooks/use-page-nation";
 
 const Container = styled.div`
   max-width: 768px;
@@ -25,19 +25,24 @@ const QuestionListContainer = styled.div`
     `linear-gradient(to bottom left, ${props.theme.colors.tabBar} 0%, ${props.theme.colors.secondary} 60%, ${props.theme.colors.secondary} 100%)`};
 `;
 
-const PagenationContainer = styled.div`
+const PageNationContainer = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
 `;
-const PagenationItem = styled(Link)<{ $isCurrent: boolean }>`
+const PageNationItem = styled(Link)<{ $isCurrent: boolean }>`
   font-size: ${({ theme }) => theme.fontSize.headline6};
   color: ${({ theme, $isCurrent }) => ($isCurrent ? theme.colors.white : theme.colors.gray)};
 `;
 
 export const QuestionList = () => {
   const [searchParams] = useSearchParams();
-  const page = Number(searchParams?.get("page")) || 0;
+  const page = Number(searchParams?.get("page")) || 1;
   const { data: questions, isPending, isError } = useQuestionListQuery(page - 1);
-  const { current, pages, isNoPrev, isNoNext } = usePagenation(questions?.totalPages ?? 1, 5);
+  const { current, pages, isNoPrev, isNoNext } = usePageNation(questions?.totalPages ?? 1, 5);
+  console.log(pages);
+  console.log(questions);
 
   if (isPending) {
     return <div>Loading...</div>;
@@ -62,15 +67,15 @@ export const QuestionList = () => {
           />
         ))}
       </QuestionListContainer>
-      <PagenationContainer>
+      <PageNationContainer>
         {!isNoPrev && <Link to={`?page=${pages[0] - 1}`}>{"<"}</Link>}
         {pages.map((page) => (
-          <PagenationItem key={page} $isCurrent={current === page} to={`?page=${page}`}>
+          <PageNationItem key={page} $isCurrent={current === page} to={`?page=${page}`}>
             {page}
-          </PagenationItem>
+          </PageNationItem>
         ))}
         {!isNoNext && <Link to={`?page=${pages[pages.length - 1] + 1}`}>{">"}</Link>}
-      </PagenationContainer>
+      </PageNationContainer>
     </Container>
   );
 };

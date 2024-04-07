@@ -1,5 +1,3 @@
-import { useSearchParams } from "react-router-dom";
-
 import { UseQueryResult, useQuery } from "@tanstack/react-query";
 
 import { QuestionListType } from "../model/question-list.type";
