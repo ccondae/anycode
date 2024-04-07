@@ -7,7 +7,7 @@ import { LanguageRank } from "~/widgets/language-rank";
 import { QuestionGuide } from "~/widgets/question-guide";
 import { QuestionList } from "~/widgets/question-list";
 import { ReviewerRank } from "~/widgets/reviewer-rank";
-import { Top } from "~/widgets/top";
+import { Top } from "~/widgets/Top";
 
 import { Banner } from "~/shared/banner";
 
