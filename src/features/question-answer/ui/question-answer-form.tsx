@@ -22,6 +22,12 @@ const SQuestionAnswerFormBox = styled.section`
   padding-block: 20px;
 `;
 
+const SQuestionAnswerContent = styled.section`
+  background-color: ${({ theme }) => theme.colors.white};
+  padding-top: "16px";
+  border-top: ${({ theme }) => `1px solid ${theme.colors.black}`};
+`;
+
 export const QuestionAnswerForm = () => {
   const { ref } = useEditor();
   const [markdown, setMarkdown] = useState("");
@@ -29,11 +35,9 @@ export const QuestionAnswerForm = () => {
     <SQuestionAnswerFormBox>
       <form>
         <SInput placeholder="당신의 답변을 써주세요." />
-        <div
-          className=""
+        <SQuestionAnswerContent
           style={{
             height: "768px",
-            backgroundColor: "white",
           }}
         >
           <Editor
@@ -43,7 +47,7 @@ export const QuestionAnswerForm = () => {
               setMarkdown(e);
             }}
           />
-        </div>
+        </SQuestionAnswerContent>
       </form>
     </SQuestionAnswerFormBox>
   );
