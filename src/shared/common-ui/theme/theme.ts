@@ -11,6 +11,7 @@ export const vars: DefaultTheme = {
     view: "#ED4723",
     answer: "#F9B05B",
     like: "#4AB226",
+    gray: "#9288A5",
   },
   fontSize: {
     headline1: "96px",

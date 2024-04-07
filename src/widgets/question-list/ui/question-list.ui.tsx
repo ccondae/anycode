@@ -1,9 +1,19 @@
+import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 
 import { Question } from "~/entities/question";
+import { useQuestionListQuery } from "~/entities/question-list/api/use-question-list.query";
 
-export const QuestionListContainer = styled.div`
+import { PageNation } from "~/shared/common-ui/page-nation";
+
+const Container = styled.div`
   max-width: 768px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+`;
+
+const QuestionListContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -15,59 +25,38 @@ export const QuestionListContainer = styled.div`
     `linear-gradient(to bottom left, ${props.theme.colors.tabBar} 0%, ${props.theme.colors.secondary} 60%, ${props.theme.colors.secondary} 100%)`};
 `;
 
-const dummyQuestions = [
-  {
-    id: 1,
-    title: "How to use Recoil?",
-    language: "TypeScript",
-    likeCount: 10,
-    viewCount: 20,
-    categories: ["React", "State Management"],
-    comments: ["a", "b", "c"],
-  },
-  {
-    id: 2,
-    title: "How to use Recoil?",
-    language: "TypeScript",
-    likeCount: 10,
-    viewCount: 20,
-    categories: ["React", "State Management"],
-    comments: ["a", "b", "c"],
-  },
-  {
-    id: 3,
-    title: "How to use Recoil?",
-    language: "TypeScript",
-    likeCount: 10,
-    viewCount: 20,
-    categories: ["React", "State Management"],
-    comments: ["a", "b", "c"],
-  },
-  {
-    id: 4,
-    title: "How to use Recoil?",
-    language: "TypeScript",
-    likeCount: 10,
-    viewCount: 20,
-    categories: ["React", "State Management"],
-    comments: ["a", "b", "c"],
-  },
-];
-
 export const QuestionList = () => {
+  const [searchParams] = useSearchParams();
+  const currentPage = Number(searchParams?.get("page")) || 1;
+  // Todo: 현재는 "popular"로 고정되어있지만, 인자로 받아서 사용할 수 있도록 변경해야합니다.
+  // "전체","답변된 질문","답변되지 않은 질문" 등등..
+  const { data: questions, isPending, isError } = useQuestionListQuery(currentPage - 1);
+
+  if (isPending) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>Error</div>;
+  }
+
   return (
-    <QuestionListContainer>
-      {dummyQuestions.map(({ id, title, language, likeCount, viewCount, categories, comments }) => (
-        <Question
-          key={id}
-          title={title}
-          language={language}
-          likeCount={likeCount}
-          viewCount={viewCount}
-          categories={categories}
-          comments={comments}
-        />
-      ))}
-    </QuestionListContainer>
+    <Container>
+      <QuestionListContainer>
+        {questions.content.map(({ id, title, likeCount, viewCount, categories, commentCount, createdAt }) => (
+          <Question
+            key={id}
+            title={title}
+            likeCount={likeCount}
+            viewCount={viewCount}
+            categories={categories}
+            commentCount={commentCount}
+            createdAt={createdAt}
+          />
+        ))}
+      </QuestionListContainer>
+      {/* 필터링 변경되면 currentPage 초기화 해줘야 함 */}
+      <PageNation page={currentPage} />
+    </Container>
   );
 };
