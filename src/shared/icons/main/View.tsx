@@ -1,6 +1,6 @@
 import { IconProps } from "../Icons.type";
 
-export const View = ({ width = "21", height = "20", fill = "#F9B05B" }: IconProps) => {
+export const View = ({ width = "21", height = "20", fill = "#ED4723" }: IconProps) => {
   return (
     <svg width={width} height={height} viewBox="0 0 21 16" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
