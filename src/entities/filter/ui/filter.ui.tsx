@@ -1,10 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-interface LiProps {
-  isActive: boolean;
-}
-
 const filterArr = ["Popular questions", "All questions", "Answered", "Wait to be answered"];
 
 const Ul = styled.ul`
@@ -13,9 +9,12 @@ const Ul = styled.ul`
   gap: 50px;
 `;
 
-const Li = styled.li<LiProps>`
-  color: ${(props) => (props.isActive ? props.theme.colors.white : props.theme.colors.tabBar)};
+const Li = styled.li`
+  color: ${(props) => props.theme.colors.tabBar};
   cursor: pointer;
+  &.active {
+    color: ${(props) => props.theme.colors.white};
+  }
 `;
 
 export const Filter = () => {
@@ -24,7 +23,7 @@ export const Filter = () => {
   return (
     <Ul>
       {filterArr.map((item) => (
-        <Li key={item} isActive={select === item} onClick={() => setSelect(item)}>
+        <Li key={item} className={select === item ? "active" : ""} onClick={() => setSelect(item)}>
           {item}
         </Li>
       ))}
