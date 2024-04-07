@@ -19,7 +19,7 @@ export const LanguageRank = () => {
   const listElements = data?.slice(0, 10).map(({ id, name }) => <Language key={id} language={name} />);
 
   if (isPending) {
-    return "...loading";
+    return <div>...loading</div>;
   }
   if (isError) {
     return null;
