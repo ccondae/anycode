@@ -1,7 +1,9 @@
 import { useSearchParams } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 
 import { Question } from "~/entities/question";
+import { categoryState } from "~/entities/question-list-filter/model/question-list-filter.atom";
 import { useQuestionListQuery } from "~/entities/question-list/api/use-question-list.query";
 
 import { PageNation } from "~/shared/common-ui/page-nation";
@@ -28,9 +30,9 @@ const QuestionListContainer = styled.div`
 export const QuestionList = () => {
   const [searchParams] = useSearchParams();
   const currentPage = Number(searchParams?.get("page")) || 1;
-  // Todo: 현재는 "popular"로 고정되어있지만, 인자로 받아서 사용할 수 있도록 변경해야합니다.
-  // "전체","답변된 질문","답변되지 않은 질문" 등등..
-  const { data: questions, isPending, isError } = useQuestionListQuery(currentPage - 1);
+  const category = useRecoilValue(categoryState);
+
+  const { data: questions, isPending, isError } = useQuestionListQuery(category, currentPage - 1);
 
   if (isPending) {
     return <div>Loading...</div>;

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { Filter } from "~/entities/filter";
+import { QuestionListFilter } from "~/entities/question-list-filter";
 import { QuestionButton } from "~/entities/question_button";
 
 const Wrapper = styled.div`
@@ -18,7 +18,7 @@ const Wrapper = styled.div`
 export const Top = ({ isWritePage = false }: { isWritePage?: boolean }) => {
   return (
     <Wrapper>
-      <Filter />
+      <QuestionListFilter />
       {!isWritePage && <QuestionButton />}
     </Wrapper>
   );
