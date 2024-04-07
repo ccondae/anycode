@@ -10,7 +10,18 @@ import { useCommentUploadMutation } from "../api";
 interface CommentFormProps {
   questionId: string | number;
 }
-
+/**
+ * `CommentForm` 컴포넌트는 Comment를 입력하는 컴포넌트입니다.
+ * `CommentUploadContextProvider` 컴포넌트에게 환경적인 의존성이 존재하니 함께 사용하셔야합니다.
+ *
+ * @component
+ * @prop {string} questionId - 해당 댓글이 달려야하는 질문의 id를 명시합니다.
+ *
+ * @example
+ * <CommentUploadContextProvider>
+ *   <CommentForm/>
+ * </CommentUploadContextProvider>
+ */
 export const CommentForm = ({ questionId }: CommentFormProps) => {
   const { ref, getResult } = useEditor();
   const { value, setValue } = useCommentUploadContext();
