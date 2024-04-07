@@ -7,6 +7,7 @@ const QuestionContainer = styled.div`
   height: 145px;
   background-color: ${(props) => props.theme.colors.white};
   border-radius: 10px;
+  cursor: pointer;
 `;
 
 const QuestionContent = styled.div`
