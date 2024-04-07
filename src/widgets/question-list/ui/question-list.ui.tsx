@@ -1,10 +1,10 @@
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 
 import { Question } from "~/entities/question";
 import { useQuestionListQuery } from "~/entities/question-list/api/use-question-list.query";
 
-import { usePageNation } from "~/shared/hooks/use-page-nation";
+import { PageNation } from "~/shared/common-ui/page-nation";
 
 const Container = styled.div`
   max-width: 768px;
@@ -25,22 +25,12 @@ const QuestionListContainer = styled.div`
     `linear-gradient(to bottom left, ${props.theme.colors.tabBar} 0%, ${props.theme.colors.secondary} 60%, ${props.theme.colors.secondary} 100%)`};
 `;
 
-const PageNationContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 14px;
-`;
-const PageNationItem = styled(Link)<{ $isCurrent: boolean }>`
-  font-size: ${({ theme }) => theme.fontSize.headline6};
-  color: ${({ theme, $isCurrent }) => ($isCurrent ? theme.colors.white : theme.colors.gray)};
-`;
-
 export const QuestionList = () => {
   const [searchParams] = useSearchParams();
-  const page = Number(searchParams?.get("page")) || 1;
-  const { data: questions, isPending, isError } = useQuestionListQuery(page - 1);
-  const { currentPage, pages, isNoPrev, isNoNext } = usePageNation(page, 5);
+  const currentPage = Number(searchParams?.get("page")) || 1;
+  // Todo: 현재는 "popular"로 고정되어있지만, 인자로 받아서 사용할 수 있도록 변경해야합니다.
+  // "전체","답변된 질문","답변되지 않은 질문" 등등..
+  const { data: questions, isPending, isError } = useQuestionListQuery(currentPage - 1);
 
   if (isPending) {
     return <div>Loading...</div>;
@@ -65,15 +55,8 @@ export const QuestionList = () => {
           />
         ))}
       </QuestionListContainer>
-      <PageNationContainer>
-        {!isNoPrev && <Link to={`?page=${pages[0] - 1}`}>{"<"}</Link>}
-        {pages.map((page) => (
-          <PageNationItem key={page} $isCurrent={currentPage === page} to={`?page=${page}`}>
-            {page}
-          </PageNationItem>
-        ))}
-        {!isNoNext && <Link to={`?page=${pages[pages.length - 1] + 1}`}>{">"}</Link>}
-      </PageNationContainer>
+      {/* 필터링 변경되면 currentPage 초기화 해줘야 함 */}
+      <PageNation page={currentPage} />
     </Container>
   );
 };
