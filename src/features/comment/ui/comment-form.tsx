@@ -8,7 +8,7 @@ import { useCommentUploadContext } from "..";
 import { useCommentUploadMutation } from "../api";
 
 interface CommentFormProps {
-  questionId: string;
+  questionId: string | number;
 }
 
 export const CommentForm = ({ questionId }: CommentFormProps) => {
