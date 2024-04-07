@@ -1,3 +1,2 @@
-export * from "./ui/question-answer-form";
-export * from "./ui/question-answer-submit";
-export * from "./model/question-answer.context";
+export * from "./ui/comment-form";
+export * from "./model/comment-upload.context";

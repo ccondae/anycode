@@ -4,11 +4,7 @@ import { QuestionPage } from "~/pages/question";
 import QuestionWritePage from "~/pages/question/question-write.page";
 import { RootPage } from "~/pages/root";
 
-import {
-  QuestionAnswerContextProvder,
-  QuestionAnswerForm,
-  QuestionAnswerRegisterSubmitButton,
-} from "~/features/comment";
+import { CommentUploadContextProvder, QuestionAnswerForm } from "~/features/comment";
 
 import { vars } from "~/shared/common-ui/theme";
 import { ROUTE } from "~/shared/route";
@@ -29,7 +25,7 @@ export const router = createBrowserRouter([
   {
     path: "/progress",
     element: (
-      <QuestionAnswerContextProvder>
+      <CommentUploadContextProvder>
         <div
           style={{
             width: "100vw",
@@ -46,11 +42,10 @@ export const router = createBrowserRouter([
               paddingInline: "20px",
             }}
           >
-            <QuestionAnswerForm />
-            <QuestionAnswerRegisterSubmitButton />
+            <QuestionAnswerForm questionId="1" />
           </div>
         </div>
-      </QuestionAnswerContextProvder>
+      </CommentUploadContextProvder>
     ),
   },
 ]);
