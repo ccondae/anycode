@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-import { Top } from "~/widgets/Top";
 import { Header } from "~/widgets/header";
 import { QuestionGuide } from "~/widgets/question-guide";
+import { Top } from "~/widgets/top";
 
 import QuestionWrite from "~/features/question/question-write.feature";
 
@@ -20,13 +20,13 @@ const HeaderWrap = styled.div`
   z-index: 10;
   box-shadow: 0px 5px 10px rgba(117, 117, 121, 0.4);
   background-color: ${({ theme }) => theme.colors.black};
-  & > * {
+  & > div > * {
     box-shadow: none;
   }
 `;
 
 const QuestionWriteContent = styled.div`
-  margin-top: 156px;
+  margin-top: 172px;
   padding-bottom: 120px;
   width: 100%;
   background-color: ${({ theme }) => theme.colors.black};
