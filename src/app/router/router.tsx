@@ -8,7 +8,7 @@ import {
   QuestionAnswerContextProvder,
   QuestionAnswerForm,
   QuestionAnswerRegisterSubmitButton,
-} from "~/features/question-answer";
+} from "~/features/comment";
 
 import { vars } from "~/shared/common-ui/theme";
 import { ROUTE } from "~/shared/route";
