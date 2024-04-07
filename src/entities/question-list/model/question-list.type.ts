@@ -12,7 +12,7 @@ export interface QuestionListType {
   empty: boolean;
 }
 
-interface QuestionListContent {
+export interface QuestionListContent {
   id: number;
   title: string;
   content: string;
