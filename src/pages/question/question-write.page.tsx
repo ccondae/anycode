@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import { Header } from "~/widgets/header";
 import { QuestionGuide } from "~/widgets/question-guide";
-import { Top } from "~/widgets/top";
+import { Top } from "~/widgets/top-filter";
 
 import QuestionWrite from "~/features/question/question-write.feature";
 
