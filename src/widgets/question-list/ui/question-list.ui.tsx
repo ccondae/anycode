@@ -5,6 +5,7 @@ import { Question } from "~/entities/question";
 import { useQuestionListQuery } from "~/entities/question-list/api/use-question-list.query";
 
 import { PageNation } from "~/shared/common-ui/page-nation";
+import { useToast } from "~/shared/common-ui/toast";
 
 const Container = styled.div`
   max-width: 768px;
@@ -28,9 +29,14 @@ const QuestionListContainer = styled.div`
 export const QuestionList = () => {
   const [searchParams] = useSearchParams();
   const currentPage = Number(searchParams?.get("page")) || 1;
+  const { toast } = useToast();
   // Todo: 현재는 "popular"로 고정되어있지만, 인자로 받아서 사용할 수 있도록 변경해야합니다.
   // "전체","답변된 질문","답변되지 않은 질문" 등등..
   const { data: questions, isPending, isError } = useQuestionListQuery(currentPage - 1);
+
+  const questionOnClick = async () => {
+    toast({ title: "대신귀 여운르 미를 보여드 리갰습 니다" });
+  };
 
   if (isPending) {
     return <div>Loading...</div>;
@@ -52,6 +58,7 @@ export const QuestionList = () => {
             categories={categories}
             commentCount={commentCount}
             createdAt={createdAt}
+            onClick={questionOnClick}
           />
         ))}
       </QuestionListContainer>
