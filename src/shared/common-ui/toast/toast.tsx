@@ -1,5 +1,5 @@
 import * as React from "react";
-import { styled } from "styled-components";
+import { keyframes, styled } from "styled-components";
 
 import * as ToastPrimitives from "@radix-ui/react-toast";
 
@@ -11,8 +11,8 @@ const StyledViewport = styled(ToastPrimitives.Viewport)`
   max-width: 420px;
   width: 100%;
   max-height: 100vh;
-  gap: 4px;
-  flex-direction: column-reverse;
+  display: flex;
+  flex-direction: column;
   left: 50%;
   transform: translateX(-50%);
   bottom: 0;
@@ -30,9 +30,39 @@ const ToastViewport = React.forwardRef<
 
 ToastViewport.displayName = ToastPrimitives.Viewport.displayName;
 
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+const fadeOut = keyframes`
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+`;
+
 const StyledToast = styled(ToastPrimitives.Root)`
-  padding: 4px;
-  background-color: aqua;
+  background-color: #26144e; // 프라이머리 컬러
+  color: #89809b; // 세컨더리 컬러
+  padding: 16px 20px;
+  margin-top: 12px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  animation:
+    ${fadeIn} 0.5s ease-out forwards,
+    ${fadeOut} 0.5s 2.5s ease-in forwards;
+  opacity: 0; // 애니메이션이 시작되기 전에 토스트를 숨깁니다.
 `;
 
 const Toast = React.forwardRef<

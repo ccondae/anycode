@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+import { useQuery } from "@tanstack/react-query";
 import { Header } from "~/widgets/header";
 import { LanguageRank } from "~/widgets/language-rank";
 import { QuestionGuide } from "~/widgets/question-guide";
@@ -12,6 +13,7 @@ import { Banner } from "~/shared/banner";
 const Main = styled.main`
   width: 100%;
   max-width: 1440px;
+  margin: auto;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -27,6 +29,18 @@ const LeftSideBars = styled.section`
 `;
 
 export const RootPage = () => {
+  const page = useQuery({
+    queryKey: ["fds"],
+    queryFn: async () => {
+      const response = await fetch("/api/question/page/popular?size=10&page=0", {
+        method: "POST",
+      });
+      const data = await response.json();
+      console.log(response);
+      return data;
+    },
+  });
+  console.log(page.data);
   return (
     <>
       <Header />

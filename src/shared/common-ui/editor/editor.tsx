@@ -64,16 +64,14 @@ const simpleSandpackConfig: SandpackConfig = {
 type EditorProps = {
   markdown: string;
   onChange?: (str: string) => void;
+  readonly?: boolean;
 };
 
 const Editor = forwardRef<ElementRef<typeof MDXEditor>, ComponentPropsWithoutRef<typeof MDXEditor> & EditorProps>(
-  ({ markdown, onChange }, ref) => {
-    return (
-      <MDXEditor
-        ref={ref}
-        markdown={markdown}
-        onChange={onChange}
-        plugins={[
+  ({ markdown, onChange, readOnly }, ref) => {
+    const plugins = readOnly
+      ? []
+      : [
           toolbarPlugin({
             toolbarContents: () => (
               <>
@@ -110,9 +108,8 @@ const Editor = forwardRef<ElementRef<typeof MDXEditor>, ComponentPropsWithoutRef
           quotePlugin(),
           markdownShortcutPlugin(),
           thematicBreakPlugin(),
-        ]}
-      />
-    );
+        ];
+    return <MDXEditor ref={ref} markdown={markdown} onChange={onChange} plugins={plugins} />;
   }
 );
 
