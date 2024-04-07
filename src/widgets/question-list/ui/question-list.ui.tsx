@@ -6,6 +6,7 @@ import { useQuestionListQuery } from "~/entities/question-list/api/use-question-
 import { useQuestionSearchQuery } from "~/entities/question-list/api/use-question-search.query";
 
 import { PageNation } from "~/shared/common-ui/page-nation";
+import { useReumi } from "~/shared/hooks";
 
 const Container = styled.div`
   max-width: 768px;
@@ -32,6 +33,7 @@ export const QuestionList = () => {
   const searchTerm = searchParams?.get("search") || "";
   // Todo: 현재는 "popular"로 고정되어있지만, 인자로 받아서 사용할 수 있도록 변경해야합니다.
   // "전체","답변된 질문","답변되지 않은 질문" 등등..
+  const { goToReumi } = useReumi();
   const { data: questions, isPending, isError } = useQuestionListQuery(currentPage - 1);
   const {
     data: searchedQuestionData,
@@ -62,6 +64,7 @@ export const QuestionList = () => {
             categories={categories}
             commentCount={commentCount}
             createdAt={createdAt}
+            onClick={goToReumi}
           />
         ))}
       </QuestionListContainer>

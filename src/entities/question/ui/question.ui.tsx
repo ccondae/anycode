@@ -7,6 +7,7 @@ const QuestionContainer = styled.div`
   height: 145px;
   background-color: ${(props) => props.theme.colors.white};
   border-radius: 10px;
+  cursor: pointer;
 `;
 
 const QuestionContent = styled.div`
@@ -52,6 +53,7 @@ interface IQuestionProps {
   commentCount: number;
   children?: React.ReactNode;
   createdAt: string;
+  onClick?: () => void;
 }
 
 // Todo: question 타입에 맞게 수정 필요
@@ -63,11 +65,12 @@ export const Question = ({
   categories,
   createdAt,
   children,
+  onClick,
 }: IQuestionProps) => {
   const date = createdAt.split("T")[0].split("-").join("/");
 
   return (
-    <QuestionContainer>
+    <QuestionContainer onClick={onClick} role="button">
       <QuestionHeader viewCount={viewCount} likeCount={likeCount} comments={commentCount} />
       <QuestionContent>
         <QuestionText>{title}</QuestionText>
