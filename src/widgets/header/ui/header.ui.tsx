@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 
 import { SearchInput } from "~/features/search-Input/ui/search-input.ui";
@@ -30,7 +31,9 @@ export const Header = () => {
   return (
     <Wrapper>
       <Contents>
-        <Icon.Logo />
+        <Link to="/">
+          <Icon.Logo />
+        </Link>
         <SearchInput />
         <LoginButton />
       </Contents>
