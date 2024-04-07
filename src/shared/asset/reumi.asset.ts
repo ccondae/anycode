@@ -15,12 +15,13 @@ export const ASSET_REUMI = {
     src: "/reumi/reumi-mbti-info.png",
     alt: "reumi-description-post-it-image",
   },
-  strong: {
-    src: "/reumi/reumi-strong.png",
-    alt: "reumi-description-post-it-image",
-  },
+
   weakness: {
     src: "/reumi/reumi-weakness.png",
+    alt: "reumi-description-post-it-image",
+  },
+  strong: {
+    src: "/reumi/reumi-strong.png",
     alt: "reumi-description-post-it-image",
   },
 } as const;

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+import { ASSET_REUMI } from "~/shared/asset";
 import { Banner } from "~/shared/banner";
 import { Header } from "~/shared/common-ui";
 
@@ -16,23 +17,34 @@ import { Header } from "~/shared/common-ui";
 //   "르미 승마장 출입금지당했어요... 왜인지 알아요?  르미 외모 보면 말이 안 나와서...",
 // ];
 
+const reumeList = Object.values(ASSET_REUMI);
+
 export const ReumiPage = () => {
   return (
-    <>
+    <div className="">
       <Header />
       <Banner />
       <div style={{ marginTop: "20px" }}></div>
+
+      <h1 style={{ textAlign: "center", fontSize: "30px" }}>안녕하 새요르 미의 팬패이 지애오 신것 을 환영해 요</h1>
+
+      <div style={{ marginTop: "100px" }}></div>
+
       <ReumiContainer>
-        <div className="">{}</div>
+        {reumeList.map((postit) => (
+          <div role={"presentation"} onClick={() => {}} key={postit.src} style={{ width: "400px", height: "400px" }}>
+            <img src={postit.src} alt={postit.alt} width={"400px"} />
+          </div>
+        ))}
       </ReumiContainer>
-</>
+    </div>
   );
 };
 
 const ReumiContainer = styled.div`
   width: 100%;
+  max-width: 1440px;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  white-space: pre-wrap;
+  flex-wrap: wrap;
+  gap: 16px;
 `;
