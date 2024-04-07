@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { QuestionBodyProps } from "../model/question-detail-type";
 
 const QuestionBodyData: QuestionBodyProps = {
