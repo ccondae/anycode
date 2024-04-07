@@ -4,7 +4,7 @@ import { QuestionAnswerRecommendType } from "~/entities/comment";
 
 import { useToast } from "~/shared/common-ui/toast";
 
-export const useQuestionAnswerRecommendMutation = (): UseMutationResult<void, Error, QuestionAnswerRecommendType> => {
+export const useCommentRecommendMutation = (): UseMutationResult<void, Error, QuestionAnswerRecommendType> => {
   const { toast } = useToast();
   const mutation = useMutation({
     mutationFn: async (body: QuestionAnswerRecommendType) => {
