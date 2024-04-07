@@ -7,6 +7,7 @@ export const vars: DefaultTheme = {
     secondary: "#89809B",
     action: "#AC91E8",
     white: "#FFFFFF",
+    gray: "#D9D9D9",
     black: "#000000",
     view: "#ED4723",
     answer: "#F9B05B",

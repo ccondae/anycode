@@ -8,6 +8,7 @@ declare module "styled-components" {
       secondary:string,
       action:string,
       white: string,
+      gray: string;
       black:string,
       view: string,
       answer: string,

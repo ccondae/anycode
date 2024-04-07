@@ -51,14 +51,17 @@ const TextInputContainer = styled.div`
     padding: 8px 16px;
     width: 100%;
     height: 40px;
-    border-radius: 8px;
+    border: 1px solid ${({ theme }) => theme.colors.black};
+    border-radius: 10px;
+    &::placeholder {
+      font-size: ${({ theme }) => theme.fontSize.caption};
+      color: ${({ theme }) => theme.colors.gray};
+    }
   }
   .wrap {
     box-sizing: border-box;
     width: 100%;
     min-height: 40px;
-    border-radius: 8px;
-    /* background-color: ${({ theme }) => theme.colors.white}; */
 
     display: flex;
     flex-direction: row;
@@ -93,7 +96,12 @@ const TextInputContainer = styled.div`
       width: 100%;
       box-sizing: border-box;
       background-color: ${({ theme }) => theme.colors.white};
-      color: ${({ theme }) => theme.colors.black};
+      border: 1px solid ${({ theme }) => theme.colors.black};
+      border-radius: 10px;
+      &::placeholder {
+        font-size: ${({ theme }) => theme.fontSize.caption};
+        color: ${({ theme }) => theme.colors.gray};
+      }
     }
   }
 `;
@@ -115,8 +123,8 @@ const DropBox = styled.div`
 `;
 
 const initialMarkdown = {
-  purpose: "> 코드를 사용하려는 목적에 대해 알기쉽게 입력해주세요.",
-  content: "> 작성된 코드의 질문을 입력해주세요.",
+  purpose: '<span style="color:#D9D9D9; font-size:12px;">코드를 사용하려는 목적에 대해 알기쉽게 입력해주세요.</span>',
+  content: '<span style="color:#D9D9D9; font-size:12px;">작성된 코드의 질문을 입력해주세요.</span>',
   code: `
 \`\`\`js
 const solution = () => {
