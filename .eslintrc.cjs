@@ -30,5 +30,9 @@ module.exports = {
   ],
   plugins: ["@typescript-eslint", "import", "jsx-a11y", "react", "react-hooks"],
   ignorePatterns: ["dist", ".eslintrc.cjs"],
-  rules: { "react/react-in-jsx-scope": "off", "react/prop-types": "off" },
+  rules: {
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
+  },
 };
