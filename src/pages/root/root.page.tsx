@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { useQuery } from "@tanstack/react-query";
+
 import { Top } from "~/widgets/Top";
 import { Header } from "~/widgets/header";
 import { LanguageRank } from "~/widgets/language-rank";
@@ -28,6 +30,18 @@ const LeftSideBars = styled.section`
 `;
 
 export const RootPage = () => {
+  const page = useQuery({
+    queryKey: ["fds"],
+    queryFn: async () => {
+      const response = await fetch("/api/question/page/popular?size=10&page=0", {
+        method: "POST",
+      });
+      const data = await response.json();
+      console.log(response);
+      return data;
+    },
+  });
+  console.log(page.data);
   return (
     <>
       <Header />

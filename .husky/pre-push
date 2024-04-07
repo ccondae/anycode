@@ -11,4 +11,13 @@ echo "🧐 progress test check.... 🧐"
 npm run test:all
 echo "🧞‍♀️ test checking pass 🧞‍♀️"
 
-echo "르미야 시간 나면 치과에서 알바해 너만 보면 입이 안 다물어지니까"
+echo "🧐 progress build check.... 🧐"
+npm run build
+echo "🧞‍♀️ test checking pass 🧞‍♀️"
+
+echo "🧐 progress prettify check.... 🧐"
+npm run prettify
+echo "🧞‍♀️ test checking pass 🧞‍♀️"
+
+
+echo "🔥 르미야 시간 나면 치과에서 알바해 너만 보면 입이 안 다물어지니까 🔥"
