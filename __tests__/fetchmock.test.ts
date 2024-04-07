@@ -4,7 +4,6 @@ describe("", () => {
     fetch.mockResponse(JSON.stringify({ hello: "world" }));
     const response = await fetch("hi");
     const data = await response.json();
-    console.log(data);
-    expect(true).toBe(true);
+    expect(data).toEqual({ hello: "world" });
   });
 });
