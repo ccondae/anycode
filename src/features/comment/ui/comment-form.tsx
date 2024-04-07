@@ -7,11 +7,11 @@ import { useEditor } from "~/shared/hooks";
 import { useCommentUploadContext } from "..";
 import { useCommentUploadMutation } from "../api";
 
-interface QuestionAnswerProps {
+interface CommentFormProps {
   questionId: string;
 }
 
-export const QuestionAnswerForm = ({ questionId }: QuestionAnswerProps) => {
+export const CommentForm = ({ questionId }: CommentFormProps) => {
   const { ref, getResult } = useEditor();
   const { value, setValue } = useCommentUploadContext();
 

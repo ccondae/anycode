@@ -4,7 +4,7 @@ import { QuestionPage } from "~/pages/question";
 import QuestionWritePage from "~/pages/question/question-write.page";
 import { RootPage } from "~/pages/root";
 
-import { CommentUploadContextProvder, QuestionAnswerForm } from "~/features/comment";
+import { CommentForm, CommentUploadContextProvder } from "~/features/comment";
 
 import { vars } from "~/shared/common-ui/theme";
 import { ROUTE } from "~/shared/route";
@@ -42,7 +42,7 @@ export const router = createBrowserRouter([
               paddingInline: "20px",
             }}
           >
-            <QuestionAnswerForm questionId="1" />
+            <CommentForm questionId="1" />
           </div>
         </div>
       </CommentUploadContextProvder>
