@@ -20,7 +20,7 @@ const Item = styled.a`
 
 export const Reviewer = ({ reviewerName, url }: ReviewerProps) => {
   return (
-    <Item href={url}>
+    <Item href={url} target="_blank">
       <Icon.Crown />
       {reviewerName}
     </Item>
