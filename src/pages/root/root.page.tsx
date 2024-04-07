@@ -1,10 +1,13 @@
 import styled from "styled-components";
 
+import { Top } from "~/widgets/Top";
 import { Header } from "~/widgets/header";
 import { LanguageRank } from "~/widgets/language-rank";
 import { QuestionGuide } from "~/widgets/question-guide";
 import { QuestionList } from "~/widgets/question-list";
 import { ReviewerRank } from "~/widgets/reviewer-rank";
+
+import { Banner } from "~/shared/banner";
 
 const Main = styled.main`
   width: 100%;
@@ -27,7 +30,8 @@ export const RootPage = () => {
   return (
     <>
       <Header />
-
+      <Banner />
+      <Top />
       <Main>
         <LeftSideBars>
           <ReviewerRank />
