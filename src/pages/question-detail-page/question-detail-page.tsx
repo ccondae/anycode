@@ -27,6 +27,17 @@ const QuestionBox = styled.div`
   background: linear-gradient(60deg, rgba(42, 39, 49, 1) 0%, rgba(137, 128, 155, 1) 35%, rgba(42, 39, 49, 1) 100%);
   border-radius: 28px;
 `;
+const CommentsContainer = styled.div`
+  margin: 100px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  & > * {
+    width: 100%;
+  }
+`;
 
 export const QuestionDetailPage = () => {
   const { id } = useParams();
@@ -46,12 +57,13 @@ export const QuestionDetailPage = () => {
   const categories = data?.categories.map((category) => category.name) || [];
   const githubUrl = data?.githubUrl || "";
   // Body 영역
-  const { content = "", purpose = "", code = "" } = data || {};
+  const { content = "", purpose = "", code = "", comments = [] } = data || {};
   const questionDetailBodyProps = {
     content,
     purpose,
     code,
   };
+  console.log(data);
   return (
     <>
       <QuestionBox>
@@ -66,7 +78,11 @@ export const QuestionDetailPage = () => {
             <QuestionDetailBody {...questionDetailBodyProps} />
           </QuestionTextContainer>
         </QuestionDetailContainer>
-        <CommentByQuestionAnswer />
+        <CommentsContainer>
+          {comments.map((comment, idx) => {
+            return <CommentByQuestionAnswer key={idx} comment={comment} />;
+          })}
+        </CommentsContainer>
       </QuestionBox>
     </>
   );
