@@ -7,7 +7,7 @@ export const useQuestionListQuery = (category: string, page: number): UseQueryRe
   const questionList = useQuery<QuestionListType>({
     queryKey: QUESTION_LIST_KEY.pagination({ category, size: 10, page }),
     queryFn: async () => {
-      const response = await fetch(QUESTION_LIST_ENDPOINT.pagination({ category, size: 10, page }), { method: "POST" });
+      const response = await fetch(QUESTION_LIST_ENDPOINT.pagination({ category, size: 10, page }));
       const json = await response.json();
       return json;
     },

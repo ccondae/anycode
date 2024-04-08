@@ -52,7 +52,6 @@ export const QuestionList = () => {
   if (isError || isSearchedError) {
     return <div>Error</div>;
   }
-
   const data = searchTerm ? searchedQuestionData : questions.content;
 
   return (
