@@ -4,7 +4,7 @@ export interface CommentUpload {
 }
 
 export interface CommentUploadResponse {
-  createAt: string;
+  createdAt: string;
   id: number;
   content: string;
   likeCount: number;

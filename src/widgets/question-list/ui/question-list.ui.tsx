@@ -1,12 +1,15 @@
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 
+import { languageState } from "~/widgets/language-rank/model/language-rank.atom";
+
 import { Question } from "~/entities/question";
+import { categoryState } from "~/entities/question-list-filter/model/question-list-filter.atom";
 import { useQuestionListQuery } from "~/entities/question-list/api/use-question-list.query";
 import { useQuestionSearchQuery } from "~/entities/question-list/api/use-question-search.query";
 
 import { PageNation } from "~/shared/common-ui/page-nation";
-import { useReumi } from "~/shared/hooks";
 
 const Container = styled.div`
   max-width: 768px;
@@ -30,11 +33,15 @@ const QuestionListContainer = styled.div`
 export const QuestionList = () => {
   const [searchParams] = useSearchParams();
   const currentPage = Number(searchParams?.get("page")) || 1;
+  const category = useRecoilValue(categoryState);
+  const language = useRecoilValue(languageState);
+  const navigator = useNavigate();
+
+  const { data: questions, isPending, isError } = useQuestionListQuery(category, currentPage - 1, language);
   const searchTerm = searchParams?.get("search") || "";
-  // Todo: 현재는 "popular"로 고정되어있지만, 인자로 받아서 사용할 수 있도록 변경해야합니다.
-  // "전체","답변된 질문","답변되지 않은 질문" 등등..
-  const { goToReumi } = useReumi();
-  const { data: questions, isPending, isError } = useQuestionListQuery(currentPage - 1);
+
+  // const { goToReumi } = useReumi();
+
   const {
     data: searchedQuestionData,
     isPending: isSearchedPending,
@@ -48,25 +55,25 @@ export const QuestionList = () => {
   if (isError || isSearchedError) {
     return <div>Error</div>;
   }
-
   const data = searchTerm ? searchedQuestionData : questions.content;
 
   return (
     <Container>
       <QuestionListContainer>
         {data?.length === 0 && <div>검색 결과가 없습니다.</div>}
-        {data && data.map(({ id, title, likeCount, viewCount, categories, commentCount, createdAt }) => (
-          <Question
-            key={id}
-            title={title}
-            likeCount={likeCount}
-            viewCount={viewCount}
-            categories={categories}
-            commentCount={commentCount}
-            createdAt={createdAt}
-            onClick={goToReumi}
-          />
-        ))}
+        {data &&
+          data.map(({ id, title, likeCount, viewCount, categories, commentCount, createdAt }) => (
+            <Question
+              key={id}
+              title={title}
+              likeCount={likeCount}
+              viewCount={viewCount}
+              categories={categories}
+              commentCount={commentCount}
+              createdAt={createdAt}
+              onClick={() => navigator(`/question/${id}`)}
+            />
+          ))}
       </QuestionListContainer>
       {/* 필터링 변경되면 currentPage 초기화 해줘야 함 */}
       <PageNation page={currentPage} />

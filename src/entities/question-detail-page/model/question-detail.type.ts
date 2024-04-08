@@ -23,3 +23,13 @@ export interface Comment {
   createdAt: string;
   likeCount: number;
 }
+export interface ProfileHeaderProps {
+  userProfile: {
+    userName: string;
+    questionCount: number;
+    answerCount: number;
+  };
+  viewCount: number;
+  commnetCount: number;
+  likeCount: number;
+}
