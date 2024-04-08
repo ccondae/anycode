@@ -13,7 +13,7 @@ const EditorContainer = styled.div`
   width: 100%;
   background-color: ${({ theme }) => theme.colors.white};
   border: 1px solid ${({ theme }) => theme.colors.black};
-  border-radius: 8px;
+  border-radius: 10px;
   .mdxeditor {
     background-color: ${({ theme }) => theme.colors.white};
   }

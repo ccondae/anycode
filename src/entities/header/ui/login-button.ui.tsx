@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { useReumi } from "~/shared/hooks";
+
 const Button = styled.button`
   width: 160px;
   height: 39px;
@@ -9,7 +11,8 @@ const Button = styled.button`
 `;
 
 export const LoginButton = () => {
-  return <Button>로그인 / 회원가입</Button>;
+  const { goToReumi } = useReumi();
+  return <Button onClick={goToReumi}>로그인 / 회원가입</Button>;
 };
 
 // entities는 UI를 기준으로 정의하는게 아니라 데이터를 기준으로 정의해야할것같아요

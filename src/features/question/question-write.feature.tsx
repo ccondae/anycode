@@ -1,4 +1,4 @@
-import { ChangeEvent, KeyboardEvent, MouseEvent, useCallback, useEffect, useState } from "react";
+import { ChangeEvent, KeyboardEvent, MouseEvent, useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 
@@ -17,7 +17,7 @@ const QuestionContainer = styled.div`
   align-items: center;
   gap: 40px;
   background: rgb(42, 39, 49);
-  background: linear-gradient(60deg, rgba(42, 39, 49, 1) 0%, rgba(137, 128, 155, 1) 35%, rgba(38, 20, 78, 1) 100%);
+  background: linear-gradient(60deg, rgba(42, 39, 49, 1) 0%, rgba(137, 128, 155, 1) 35%, rgba(42, 39, 49, 1) 100%);
   border-radius: 28px;
   & > button {
     cursor: pointer;
@@ -43,7 +43,7 @@ const TextInputContainer = styled.div`
     font-size: ${({ theme }) => theme.fontSize.headline6};
   }
   & > .help {
-    color: ${({ theme }) => theme.colors.white};
+    color: ${({ theme }) => theme.colors.white}60;
     font-size: ${({ theme }) => theme.fontSize.caption};
   }
   & > input {
@@ -51,15 +51,17 @@ const TextInputContainer = styled.div`
     padding: 8px 16px;
     width: 100%;
     height: 40px;
-    border-radius: 8px;
+    border: 1px solid ${({ theme }) => theme.colors.black};
+    border-radius: 10px;
+    &::placeholder {
+      font-size: ${({ theme }) => theme.fontSize.caption};
+      color: ${({ theme }) => theme.colors.gray};
+    }
   }
   .wrap {
     box-sizing: border-box;
-    padding: 8px 16px;
     width: 100%;
     min-height: 40px;
-    border-radius: 8px;
-    background-color: ${({ theme }) => theme.colors.white};
 
     display: flex;
     flex-direction: row;
@@ -67,7 +69,8 @@ const TextInputContainer = styled.div`
     justify-content: flex-start;
     align-items: center;
     gap: 8px;
-    & > * {
+    & > button,
+    & > div > input {
       padding: 2px 12px;
       box-sizing: border-box;
       display: flex;
@@ -84,18 +87,44 @@ const TextInputContainer = styled.div`
       border: none;
       color: ${({ theme }) => theme.colors.white};
       background-color: ${({ theme }) => theme.colors.black}40;
+      &.exist {
+        background-color: ${({ theme }) => theme.colors.main}80;
+      }
     }
-
-    & > input {
-      min-width: 280px;
+    & > div > input {
+      height: 40px;
+      width: 100%;
       box-sizing: border-box;
-      background-color: ${({ theme }) => theme.colors.black}20;
+      background-color: ${({ theme }) => theme.colors.white};
+      border: 1px solid ${({ theme }) => theme.colors.black};
+      border-radius: 10px;
+      &::placeholder {
+        font-size: ${({ theme }) => theme.fontSize.caption};
+        color: ${({ theme }) => theme.colors.gray};
+      }
     }
   }
 `;
+const DropInputBox = styled.div`
+  display: flex;
+  position: relative;
+  width: 100%;
+`;
+
+const DropBox = styled.div`
+  position: absolute;
+  top: calc(100% + 4px);
+  padding: 8px 16px;
+  width: 100%;
+  min-height: 80px;
+  z-index: 9;
+  background-color: ${({ theme }) => theme.colors.white};
+  box-shadow: 1px 1px 5px ${({ theme }) => theme.colors.black}20;
+`;
+
 const initialMarkdown = {
-  purpose: "> 코드를 사용하려는 목적에 대해 알기쉽게 입력해주세요.",
-  content: "> 작성된 코드의 질문을 입력해주세요.",
+  purpose: '<span style="color:#D9D9D9; font-size:12px;">코드를 사용하려는 목적에 대해 알기쉽게 입력해주세요.</span>',
+  content: '<span style="color:#D9D9D9; font-size:12px;">작성된 코드의 질문을 입력해주세요.</span>',
   code: `
 \`\`\`js
 const solution = () => {
@@ -119,30 +148,28 @@ const QuestionWrite = () => {
   const [findCategory, setFindCategory] = useState<{ [key: string]: CategoryType }>({});
   const [categories, setCategories] = useState<string[]>([]);
   const [category, setCategory] = useState("");
+  const dropRef = useRef<HTMLDivElement | null>(null);
 
   const handleMarkDown = (str: string, name: WriteMarkdownType) => {
     setMarkDowns((p) => ({ ...p, [name]: str }));
   };
-  const addSelectedCategory = () => {
-    console.log(categories, category);
-    if (!category) return;
-    const val = category.trim();
-    if (findCategory[val]) {
-      categories.push(findCategory[val].name);
-    } else {
-      categories.push(val);
-    }
+  const addSelectedCategory = (tmpCategory = "") => {
+    if (!tmpCategory) return;
+    const val = tmpCategory.trim();
+    if (findCategory[val]) categories.push(findCategory[val].name);
+    else categories.push(val);
 
+    setCategory("");
     setCategories([...categories]);
   };
+
   const handleSelectedCategory = (e: ChangeEvent<HTMLInputElement>) => {
     setCategory(e.target.value);
   };
 
   const handleKeyUp = (e: KeyboardEvent<HTMLInputElement>) => {
-    console.log(e.key);
     if (e.key === "Enter" || e.key === " ") {
-      addSelectedCategory();
+      addSelectedCategory(category);
       setCategory("");
     }
   };
@@ -152,7 +179,8 @@ const QuestionWrite = () => {
     const tmp = [...categories, category];
     const categoryIds: number[] = [];
     tmp.map((c) => {
-      if (findCategory[c.toLocaleLowerCase()]) {
+      c = c.toLocaleLowerCase();
+      if (findCategory[c]) {
         console.log(findCategory[c]);
         categoryIds.push(findCategory[c].id);
       }
@@ -179,12 +207,35 @@ const QuestionWrite = () => {
     setCategories((prev) => [...prev.filter((c) => c !== category)]);
   }, []);
 
+  useEffect(() => {
+    if (Object.keys(findCategory).length == 0 && categoryData) {
+      categoryData.map((category: CategoryType) => (findCategory[category.name.toLowerCase()] = category));
+      setFindCategory({ ...findCategory });
+    }
+  }, [findCategory, categoryData]);
+
+  useEffect(() => {
+    const handleOutsideClick = (event: globalThis.MouseEvent) => {
+      if (dropRef.current && !dropRef.current.contains(event.target as Node)) {
+        setCategory("");
+      }
+    };
+    document.addEventListener("click", handleOutsideClick);
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
+  }, []);
+
   const renderCategory = () => {
     return (
       <>
         {categories.map((category: string, idx: number) => {
           return (
-            <button key={idx} onClick={() => deleteCategory(category)}>
+            <button
+              className={findCategory[category.toLocaleLowerCase()] ? "exist" : ""}
+              key={idx}
+              onClick={() => deleteCategory(category)}
+            >
               {category}
             </button>
           );
@@ -193,12 +244,21 @@ const QuestionWrite = () => {
     );
   };
 
-  useEffect(() => {
-    if (Object.keys(findCategory).length == 0 && categoryData) {
-      categoryData.map((category: CategoryType) => (findCategory[category.name.toLowerCase()] = category));
-      setFindCategory({ ...findCategory });
-    }
-  }, [findCategory, categoryData]);
+  const renderDropBox = () => {
+    return (
+      <DropBox className={"wrap"}>
+        {Object.entries(findCategory).map(([key, categoryData], idx: number) => {
+          if (categories.includes(categoryData.name)) return null;
+          if (!key.startsWith(category)) return null;
+          return (
+            <button key={idx} onClick={() => addSelectedCategory(key)}>
+              {categoryData.name}
+            </button>
+          );
+        })}
+      </DropBox>
+    );
+  };
 
   return (
     <QuestionContainer>
@@ -214,15 +274,18 @@ const QuestionWrite = () => {
         <label>{"언어 선택하기"}</label>
         <div className={"wrap"}>
           {renderCategory()}
-          <input
-            name={"category"}
-            placeholder={"질문하는 언어를 입력 후 엔터로 등록해주세요."}
-            value={category}
-            onChange={handleSelectedCategory}
-            onKeyUp={handleKeyUp}
-          />
+          <DropInputBox ref={dropRef}>
+            <input
+              name={"category"}
+              placeholder={"질문하는 언어를 입력 후 엔터로 등록해주세요."}
+              value={category}
+              onChange={handleSelectedCategory}
+              onKeyUp={handleKeyUp}
+            />
+            {category && renderDropBox()}
+          </DropInputBox>
         </div>
-        <span className={"help"}>{"* 존재하지 않는 카테고리인 경우 등록이 제외 될 수 있습니다."}</span>
+        <span className={"help"}>{"* 정확한 언어의 이름이 아니면 등록에서 제외되니 유의해주세요."}</span>
       </TextInputContainer>
       <QuestionWriteEditor
         title={"목적"}
