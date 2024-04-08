@@ -1,3 +1,4 @@
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 import { QuestionButton } from "~/entities/question-button";
@@ -18,7 +19,10 @@ const Wrapper = styled.div`
   }
 `;
 
-export const Top = ({ isWritePage = false }: { isWritePage?: boolean }) => {
+export const Top = () => {
+  const location = useLocation();
+  const isWritePage = location.pathname === "/question/write";
+
   return (
     <Wrapper>
       <QuestionListFilter />
