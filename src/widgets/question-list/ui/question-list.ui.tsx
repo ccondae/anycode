@@ -2,6 +2,8 @@ import { useSearchParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 
+import { languageState } from "~/widgets/language-rank/model/language-rank.atom";
+
 import { Question } from "~/entities/question";
 import { categoryState } from "~/entities/question-list-filter/model/question-list-filter.atom";
 import { useQuestionListQuery } from "~/entities/question-list/api/use-question-list.query";
@@ -33,8 +35,9 @@ export const QuestionList = () => {
   const [searchParams] = useSearchParams();
   const currentPage = Number(searchParams?.get("page")) || 1;
   const category = useRecoilValue(categoryState);
+  const language = useRecoilValue(languageState);
 
-  const { data: questions, isPending, isError } = useQuestionListQuery(category, currentPage - 1);
+  const { data: questions, isPending, isError } = useQuestionListQuery(category, currentPage - 1, language);
   const searchTerm = searchParams?.get("search") || "";
 
   const { goToReumi } = useReumi();
