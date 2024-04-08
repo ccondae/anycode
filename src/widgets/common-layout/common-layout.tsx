@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 import { Banner } from "~/shared/banner";
@@ -21,6 +21,7 @@ const Main = styled.main`
 `;
 
 const LeftSideBars = styled.section`
+  min-width: 184px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -29,6 +30,10 @@ const LeftSideBars = styled.section`
 `;
 
 export const CommonLayout = () => {
+  const location = useLocation();
+
+  const isWritePage = location.pathname === "/question/write";
+
   return (
     <>
       <Header />
@@ -36,8 +41,12 @@ export const CommonLayout = () => {
       <Top />
       <Main>
         <LeftSideBars>
-          <ReviewerRank />
-          <LanguageRank />
+          {!isWritePage && (
+            <>
+              <ReviewerRank />
+              <LanguageRank />
+            </>
+          )}
         </LeftSideBars>
         <Outlet />
         <QuestionGuide />
