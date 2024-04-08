@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Language } from "~/entities/language/ui/language";
 import { Sidebar } from "~/entities/sidebar";
 
-import { mockData } from "../model/language-rank.model";
+import { useLanguageRankQuery } from "../api/use-language-rank.query";
 
 const LanguageList = styled.div`
   width: 100%;
@@ -15,8 +15,15 @@ const LanguageList = styled.div`
 `;
 
 export const LanguageRank = () => {
-  const listElements = mockData.map(({ id, language }) => <Language key={id} language={language} />);
+  const { data, isPending, isError } = useLanguageRankQuery();
+  const listElements = data?.slice(0, 10).map(({ id, name }) => <Language key={id} language={name} />);
 
+  if (isPending) {
+    return <div>...loading</div>;
+  }
+  if (isError) {
+    return null;
+  }
   return (
     <Sidebar title="인기 언어">
       <LanguageList>{listElements}</LanguageList>

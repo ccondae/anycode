@@ -15,7 +15,7 @@ const ReviewerList = styled.div`
 `;
 
 export const ReviewerRank = () => {
-  const listElements = mockData.map(({ id, username }) => <Reviewer key={id} reviewerName={username} />);
+  const listElements = mockData.map(({ id, username, url }) => <Reviewer key={id} url={url} reviewerName={username} />);
 
   return (
     <Sidebar title="리뷰어 랭킹">
