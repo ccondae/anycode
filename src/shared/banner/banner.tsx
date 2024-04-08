@@ -5,10 +5,12 @@ const Warpper = styled.div`
   max-width: 1440px;
   margin: auto;
   height: 410px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Img = styled.img`
-  width: 100%;
   height: 100%;
 `;
 
