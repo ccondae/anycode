@@ -1,6 +1,8 @@
 import { styled } from "styled-components";
 
-const Warpper = styled.div`
+import bannerImg from "~/shared/icons/main/banner.png";
+
+const Wrapper = styled.div`
   width: 100%;
   max-width: 1440px;
   margin: auto;
@@ -14,8 +16,8 @@ const Img = styled.img`
 
 export const Banner = () => {
   return (
-    <Warpper>
-      <Img src="src/shared/icons/main/banner.png" alt="" />
-    </Warpper>
+    <Wrapper>
+      <Img src={bannerImg} alt="banner" />
+    </Wrapper>
   );
 };
