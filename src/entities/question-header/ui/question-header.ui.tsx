@@ -25,6 +25,7 @@ const ProfileImage = styled.img`
 
 const ProfileName = styled.div`
   font-size: ${(props) => props.theme.fontSize.body2};
+  color: #fff;
 `;
 
 const QuestionAndAnswerCount = styled.div`
