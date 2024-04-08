@@ -2,6 +2,7 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 
 import { categoryState } from "../model/question-list-filter.atom";
+import { Category } from "../model/question-list-filter.type";
 
 const filterArr = [
   {
@@ -46,7 +47,7 @@ export const QuestionListFilter = () => {
           <Li
             key={item.uiName}
             className={category === item.apiName ? "active" : ""}
-            onClick={() => setCategory(item.apiName)}
+            onClick={() => setCategory(item.apiName as Category)}
           >
             {item.uiName}
           </Li>
