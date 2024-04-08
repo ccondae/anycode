@@ -19,8 +19,6 @@ const QuestionTextContainer = styled.div`
 `;
 const QuestionBox = styled.div`
   width: 768px;
-  margin-left: auto;
-  margin-right: auto;
   box-sizing: border-box;
   padding: 20px;
   background: rgb(42, 39, 49);
