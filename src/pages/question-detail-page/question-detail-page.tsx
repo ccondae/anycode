@@ -1,6 +1,9 @@
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
+import { Header } from "~/widgets/header";
+import { Top } from "~/widgets/top-filter";
+
 import { CommentByQuestionAnswer } from "~/entities/comment";
 import { useDetailQuery } from "~/entities/question-detail-page/model/use-detail-query";
 import { QuestionDetailBody } from "~/entities/question-detail-page/ui/question-detail-body";
@@ -8,16 +11,16 @@ import { QuestionDetailTitle } from "~/entities/question-detail-page/ui/question
 import { QuestionHeader } from "~/entities/question-header";
 
 // 스타일
+
 const QuestionDetailContainer = styled.div`
-  color: #000;
-  line-height: 1.2em;
-  border-radius: 15px;
-  background-color: #fff;
+  width: 100vw;
+  height: 100vh;
+  overflow-y: auto;
+  scrollbar-width: none;
 `;
-const QuestionTextContainer = styled.div`
-  padding: 25px 20px;
-`;
+
 const QuestionBox = styled.div`
+  margin-top: calc(100px + 76px + 20px);
   width: 768px;
   margin-left: auto;
   margin-right: auto;
@@ -27,6 +30,30 @@ const QuestionBox = styled.div`
   background: linear-gradient(60deg, rgba(42, 39, 49, 1) 0%, rgba(137, 128, 155, 1) 35%, rgba(42, 39, 49, 1) 100%);
   border-radius: 28px;
 `;
+
+const HeaderWrap = styled.div`
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+  box-shadow: 0px 5px 10px rgba(117, 117, 121, 0.4);
+  background-color: ${({ theme }) => theme.colors.black};
+  & > div > * {
+    box-shadow: none;
+  }
+`;
+
+const QuestionDetailWrap = styled.div`
+  color: #000;
+  line-height: 1.2em;
+  border-radius: 15px;
+  background-color: #fff;
+`;
+
+const QuestionTextContainer = styled.div`
+  padding: 25px 20px;
+`;
+
 const CommentsContainer = styled.div`
   margin: 100px 0;
   display: flex;
@@ -65,9 +92,13 @@ export const QuestionDetailPage = () => {
   };
   console.log(data);
   return (
-    <>
+    <QuestionDetailContainer>
+      <HeaderWrap>
+        <Header />
+        <Top />
+      </HeaderWrap>
       <QuestionBox>
-        <QuestionDetailContainer>
+        <QuestionDetailWrap>
           <QuestionHeader
             viewCount={data?.viewCount as number}
             likeCount={data?.likeCount as number}
@@ -77,13 +108,13 @@ export const QuestionDetailPage = () => {
             <QuestionDetailTitle title={title} categories={categories} githubUrl={githubUrl} />
             <QuestionDetailBody {...questionDetailBodyProps} />
           </QuestionTextContainer>
-        </QuestionDetailContainer>
+        </QuestionDetailWrap>
         <CommentsContainer>
           {comments.map((comment, idx) => {
             return <CommentByQuestionAnswer key={idx} comment={comment} />;
           })}
         </CommentsContainer>
       </QuestionBox>
-    </>
+    </QuestionDetailContainer>
   );
 };
