@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-import { ProfileHeaderProps } from "~/entities/question-detail-page/model/question-detail-type";
+import { ProfileHeaderProps } from "~/entities/question-detail-page/model/question-detail.type";
 
 import { Icon } from "~/shared/icons";
 

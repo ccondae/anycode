@@ -1,11 +1,10 @@
 import styled from "styled-components";
 
-import { QuestionTitleProps } from "../model/question-detail-type";
-
-const QuestionTitleData: QuestionTitleProps = {
-  title: "Lorem ipsum dolor sit amet consectetur.",
-  codetype: ["HTML", "CSS"],
-};
+interface QuestionDetailTypeProps {
+  title: string;
+  categories: string[];
+  githubUrl: string;
+}
 
 // 스타일
 const QuestionTitle = styled.p`
@@ -24,6 +23,8 @@ const QuestionCodeType = styled.p`
 const QuestionGitLinkBtn = styled.a`
   cursor: pointer;
   line-height: 30px;
+  color: #000;
+  text-decoration: none;
   font-size: ${({ theme }) => theme.fontSize.button};
   border: none;
   border-radius: 10px;
@@ -31,15 +32,19 @@ const QuestionGitLinkBtn = styled.a`
   background-color: ${({ theme }) => theme.colors.secondary};
 `;
 
-export const QuestionDetailTitle = () => {
+export const QuestionDetailTitle = ({ title, categories, githubUrl }: QuestionDetailTypeProps) => {
   return (
     <div className="question-detail-title">
-      <QuestionTitle>{QuestionTitleData.title}</QuestionTitle>
+      <QuestionTitle>{title}</QuestionTitle>
       <QuestionCodeLink>
         <QuestionCodeType>
-          {QuestionTitleData.codetype[0]}/{QuestionTitleData.codetype[1]}
+          {categories.map((category, index) => (
+            <span key={index}>{category}</span>
+          ))}
         </QuestionCodeType>
-        <QuestionGitLinkBtn>Github Link</QuestionGitLinkBtn>
+        <QuestionGitLinkBtn href={githubUrl} target="_blank">
+          Github Link
+        </QuestionGitLinkBtn>
       </QuestionCodeLink>
     </div>
   );

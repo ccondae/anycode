@@ -54,8 +54,8 @@ export const QuestionList = () => {
   return (
     <Container>
       <QuestionListContainer>
-        {data.length === 0 && <div>검색 결과가 없습니다.</div>}
-        {data.map(({ id, title, likeCount, viewCount, categories, commentCount, createdAt }) => (
+        {data?.length === 0 && <div>검색 결과가 없습니다.</div>}
+        {data && data.map(({ id, title, likeCount, viewCount, categories, commentCount, createdAt }) => (
           <Question
             key={id}
             title={title}
