@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Wrap = styled.div`
@@ -23,10 +23,8 @@ const Button = styled.button`
 `;
 
 export const QuestionButton = () => {
+  const location = useLocation();
+  const isWritePage = location.pathname === "/question/write";
   const navigator = useNavigate();
-  return (
-    <Wrap>
-      <Button onClick={() => navigator("/question/write")}>질문하기</Button>
-    </Wrap>
-  );
+  return <Wrap> {!isWritePage && <Button onClick={() => navigator("/question/write")}>질문하기</Button>}</Wrap>;
 };
