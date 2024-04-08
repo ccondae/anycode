@@ -1,12 +1,7 @@
 import styled from "styled-components";
 
-<<<<<<< HEAD:src/widgets/Top/ui/top.ui.tsx
-import { QuestionListFilter } from "~/entities/question-list-filter";
-import { QuestionButton } from "~/entities/question_button";
-=======
-import { Filter } from "~/entities/filter";
 import { QuestionButton } from "~/entities/question-button";
->>>>>>> c738796b5b527084f92225b13ac78795c135dfed:src/widgets/top-filter/ui/top.ui.tsx
+import { QuestionListFilter } from "~/entities/question-list-filter";
 
 const Wrapper = styled.div`
   width: 100%;

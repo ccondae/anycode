@@ -32,22 +32,18 @@ const QuestionListContainer = styled.div`
 export const QuestionList = () => {
   const [searchParams] = useSearchParams();
   const currentPage = Number(searchParams?.get("page")) || 1;
-<<<<<<< HEAD
   const category = useRecoilValue(categoryState);
 
   const { data: questions, isPending, isError } = useQuestionListQuery(category, currentPage - 1);
-=======
   const searchTerm = searchParams?.get("search") || "";
-  // Todo: 현재는 "popular"로 고정되어있지만, 인자로 받아서 사용할 수 있도록 변경해야합니다.
-  // "전체","답변된 질문","답변되지 않은 질문" 등등..
+
   const { goToReumi } = useReumi();
-  const { data: questions, isPending, isError } = useQuestionListQuery(currentPage - 1);
+
   const {
     data: searchedQuestionData,
     isPending: isSearchedPending,
     isError: isSearchedError,
   } = useQuestionSearchQuery(searchTerm);
->>>>>>> c738796b5b527084f92225b13ac78795c135dfed
 
   if (isPending || isSearchedPending) {
     return <div>Loading...</div>;
