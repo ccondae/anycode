@@ -1,4 +1,4 @@
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 
@@ -10,7 +10,6 @@ import { useQuestionListQuery } from "~/entities/question-list/api/use-question-
 import { useQuestionSearchQuery } from "~/entities/question-list/api/use-question-search.query";
 
 import { PageNation } from "~/shared/common-ui/page-nation";
-import { useReumi } from "~/shared/hooks";
 
 const Container = styled.div`
   max-width: 768px;
@@ -36,11 +35,12 @@ export const QuestionList = () => {
   const currentPage = Number(searchParams?.get("page")) || 1;
   const category = useRecoilValue(categoryState);
   const language = useRecoilValue(languageState);
+  const navigator = useNavigate();
 
   const { data: questions, isPending, isError } = useQuestionListQuery(category, currentPage - 1, language);
   const searchTerm = searchParams?.get("search") || "";
 
-  const { goToReumi } = useReumi();
+  // const { goToReumi } = useReumi();
 
   const {
     data: searchedQuestionData,
@@ -60,19 +60,20 @@ export const QuestionList = () => {
   return (
     <Container>
       <QuestionListContainer>
-        {data.length === 0 && <div>검색 결과가 없습니다.</div>}
-        {data.map(({ id, title, likeCount, viewCount, categories, commentCount, createdAt }) => (
-          <Question
-            key={id}
-            title={title}
-            likeCount={likeCount}
-            viewCount={viewCount}
-            categories={categories}
-            commentCount={commentCount}
-            createdAt={createdAt}
-            onClick={goToReumi}
-          />
-        ))}
+        {data?.length === 0 && <div>검색 결과가 없습니다.</div>}
+        {data &&
+          data.map(({ id, title, likeCount, viewCount, categories, commentCount, createdAt }) => (
+            <Question
+              key={id}
+              title={title}
+              likeCount={likeCount}
+              viewCount={viewCount}
+              categories={categories}
+              commentCount={commentCount}
+              createdAt={createdAt}
+              onClick={() => navigator(`/question/${id}`)}
+            />
+          ))}
       </QuestionListContainer>
       {/* 필터링 변경되면 currentPage 초기화 해줘야 함 */}
       <PageNation page={currentPage} />
