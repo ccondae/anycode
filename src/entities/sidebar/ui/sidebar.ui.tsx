@@ -6,7 +6,6 @@ interface SidebarProps {
 }
 
 const Container = styled.div`
-  min-width: 168px;
   height: 429px;
   border-radius: 30px;
   display: flex;

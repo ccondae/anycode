@@ -8,7 +8,6 @@ import { CategoryType } from "~/entities/question/model/question.type";
 import { QuestionWriteEditor } from "~/entities/question/ui";
 
 const QuestionContainer = styled.div`
-  margin: 20px 0;
   padding: 40px 20px;
   width: 768px;
   display: flex;
@@ -16,7 +15,6 @@ const QuestionContainer = styled.div`
   justify-content: center;
   align-items: center;
   gap: 40px;
-  background: rgb(42, 39, 49);
   background: linear-gradient(60deg, rgba(42, 39, 49, 1) 0%, rgba(137, 128, 155, 1) 35%, rgba(42, 39, 49, 1) 100%);
   border-radius: 28px;
   & > button {
