@@ -4,7 +4,12 @@ import styled from "styled-components";
 import { categoryState } from "../model/question-list-filter.atom";
 import { Category } from "../model/question-list-filter.type";
 
-const filterArr = [
+interface filterType {
+  uiName: string;
+  apiName: Category;
+}
+
+const filterArr: filterType[] = [
   {
     uiName: "Popular questions",
     apiName: "popular",
@@ -47,7 +52,7 @@ export const QuestionListFilter = () => {
           <Li
             key={item.uiName}
             className={category === item.apiName ? "active" : ""}
-            onClick={() => setCategory(item.apiName as Category)}
+            onClick={() => setCategory(item.apiName)}
           >
             {item.uiName}
           </Li>
