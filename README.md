@@ -61,7 +61,7 @@
     - 코드리뷰 플랫폼을 만드는 사람들 답게 서로 활발히 리뷰를 주고 받았어요!
 - 멋진 팀원들 덕에 결과물에 집착하지 않고 재미있는 스프린트를 진행했답니다~
 
-|                Design                |     Backend      |     Frontend     |     Frontend     |     Frontend     |     Frontend     |     Frontend     |     Frontend     |
+|                Design                |     Backend      |     Frontend     |     Frontend     |     Frontend     |     Frontend     |     Fullstack / Android     |     Frontend     |
 | :----------------------------------: | :--------------: | :--------------: | :--------------: | :--------------: | :--------------: | :--------------: | :--------------: |
 | <img width="160px" src="https://avatars.githubusercontent.com/u/155419724?v=4" />|<img width="160px" src="https://avatars.githubusercontent.com/rookedsysc" />|<img width="160px" src="https://avatars.githubusercontent.com/Leedo02" />|<img width="160px" src="https://avatars.githubusercontent.com/Jaeeun98" />|<img width="160px" src="https://avatars.githubusercontent.com/Sang-minKIM" />|<img width="160px" src="https://avatars.githubusercontent.com/XionWCFM" />|<img width="160px" src="https://avatars.githubusercontent.com/anveloper" />|<img width="160px" src="https://avatars.githubusercontent.com/Yongveloper" />|
 | 르미 | [로키](https://github.com/rookedsysc) | [하늘](https://github.com/Leedo02) | [미오](https://github.com/Jaeeun98) | [삽사리](https://github.com/Sang-minKIM) | [시온](https://github.com/XionWCFM) | [운터](https://github.com/anveloper) | [준](https://github.com/Yongveloper) |
