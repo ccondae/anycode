@@ -83,7 +83,10 @@
 
 ### 백엔드
 
-<img src="https://img.shields.io/badge/java-3a75b0?style=for-the-badge&logo=java&logoColor=black">
+<img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white">
+<img src="https://img.shields.io/badge/Kotlin-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white">
+<img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
+<img src="https://img.shields.io/badge/ec2-FF9900?style=for-the-badge&logo=amazonAWS&logoColor=white">
 
 ### 디자인
 
